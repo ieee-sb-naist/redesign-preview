@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IEEE Student Branch at NAIST</title>
+<meta name="description" content="Official website of the IEEE Student Branch at the Nara Institute of Science and Technology (NAIST).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ieee-blue:#00629B; --ieee-navy:#00294D; --ieee-navy-deep:#001A33;
+    --signal:#38BDF8; --nara:#C24E2E; --nara-soft:#F3E4DC; --ink:#0A2540; --ink-soft:#42566b;
+    --paper:#fff; --mist:#F2F6FA; --line:#dbe4ee; --maxw:1120px;
+    --raw:https://raw.githubusercontent.com/ieee-sb-naist/ieee-sb-naist.github.io/gh-pages;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:"IBM Plex Sans",system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:"Space Grotesk",sans-serif;line-height:1.14;letter-spacing:-.01em;margin:0;}
+  a{color:var(--ieee-blue);text-decoration:none;}
+  p{margin:0 0 1rem;max-width:64ch;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+  section{padding:88px 0;}
+  :focus-visible{outline:3px solid var(--signal);outline-offset:3px;border-radius:2px;}
+  img{max-width:100%;display:block;}
+
+  /* nav */
+  header.nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:66px;}
+  /* .brand{display:flex;align-items:center;gap:10px;font-family:"Space Grotesk";font-weight:700;color:var(--ieee-navy);font-size:1.05rem;letter-spacing:-.02em;}
+  .brand .mark{width:26px;height:26px;flex:0 0 auto;} */
+  .brand{display:flex;align-items:center;}
+  .brand img{height:40px;width:auto;display:block;}
+  .nav-links{display:flex;align-items:center;gap:26px;}
+  .nav-links a.link{color:var(--ink);font-weight:500;font-size:.95rem;padding:4px 0;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;}
+  .nav-links a.link:hover{color:var(--ieee-blue);}
+  .nav-links a.link.active{color:var(--ieee-blue);border-bottom-color:var(--ieee-blue);}
+  .btn{display:inline-block;background:var(--ieee-blue);color:#fff;font-weight:600;padding:11px 20px;border-radius:6px;font-size:.95rem;transition:background .15s;border:0;cursor:pointer;}
+  .btn:hover{background:#004e7c;}
+  .btn.ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.6);}
+  .btn.ghost:hover{background:rgba(255,255,255,.12);}
+  .nav-toggle{display:none;background:none;border:0;color:var(--ieee-navy);cursor:pointer;}
+
+  /* hero carousel */
+  .hero{position:relative;min-height:600px;overflow:hidden;background:var(--ieee-navy);color:#fff;}
+  .slides{position:absolute;inset:0;z-index:0;}
+  .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1s ease;}
+  .slide.on{opacity:1;}
+  /* .hero-overlay{position:relative;z-index:2;min-height:600px;display:flex;align-items:flex-start;background:linear-gradient(112deg, rgba(0,26,51,.58) 0%, rgba(0,33,61,.36) 46%, rgba(0,73,124,.14) 100%);}
+  .hero-overlay .wrap{padding-top:108px;padding-bottom:96px;} */
+  .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(112deg, rgba(0,26,51,.58) 0%, rgba(0,33,61,.36) 46%, rgba(0,73,124,.14) 100%);}
+  .hero .wrap{position:relative;z-index:2;padding-top:108px;padding-bottom:96px;}
+  
+  .hero .context,.hero h1,.hero .lead{text-shadow:0 2px 18px rgba(0,14,30,.62);}
+  .context{font-size:.9rem;color:#bcd8ef;margin-bottom:20px;font-weight:500;}
+  .context a{color:#e0eefa;}
+  .hero h1{font-size:clamp(2.4rem,6vw,4.1rem);max-width:16ch;}
+  .hero p.lead{font-size:1.18rem;color:#dcecf8;max-width:48ch;margin-top:20px;}
+  .hero-cta{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap;}
+  .signal-line{position:relative;z-index:2;height:3px;width:100%;overflow:hidden;}
+  .signal-line svg{position:absolute;bottom:0;left:0;width:200%;}
+  .signal-line path{fill:none;stroke:var(--nara);stroke-width:2;stroke-dasharray:1400;stroke-dashoffset:1400;animation:trace 2.4s ease forwards .3s;}
+  @keyframes trace{to{stroke-dashoffset:0;}}
+  .carousel-ctrl{position:absolute;z-index:3;bottom:22px;right:24px;display:flex;align-items:center;gap:10px;}
+  .dots{display:flex;gap:8px;}
+  .dot{width:9px;height:9px;border-radius:50%;border:0;background:rgba(255,255,255,.4);cursor:pointer;padding:0;}
+  .dot.on{background:#fff;}
+  .arrow{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.5);background:rgba(0,0,0,.25);color:#fff;cursor:pointer;display:grid;place-items:center;}
+  .arrow:hover{background:rgba(0,0,0,.45);}
+
+  /* section heads */
+  .shead{max-width:none;margin-bottom:44px;}
+  .shead h2{font-size:clamp(1.8rem,3.4vw,2.5rem);color:var(--ieee-navy);}
+  /* .shead h2::after{content:"";display:block;width:52px;height:3px;background:var(--nara);border-radius:2px;margin-top:16px;} */
+  .shead p{color:var(--ink-soft);font-size:1.08rem;margin-top:14px;max-width:none;}
+  #about .shead{max-width:none;}
+  #about .shead p{max-width:none;}
+  .mist{background:var(--mist);}
+
+  /* mission / vision */
+  .mv{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:40px;}
+  .mv-card{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;}
+  .mv-card .pic{aspect-ratio:16/10;background:var(--mist) center/cover no-repeat;}
+  .mv-card .body{padding:26px 28px 30px;}
+  .mv-title{color:var(--ieee-blue);font-family:"Space Grotesk";font-weight:700;font-size:.95rem;letter-spacing:.02em;margin-bottom:10px;}
+  .mv-headline{font-family:"Space Grotesk";font-weight:700;font-size:1.35rem;color:var(--ieee-navy);line-height:1.25;margin-bottom:12px;}
+  .mv-text{color:var(--ink-soft);margin:0;}
+
+  /* facts */
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:28px;}
+  .fact{background:#fff;padding:24px 26px;}
+  .fact .k{font-family:"Space Grotesk";font-weight:700;color:var(--ieee-blue);font-size:1.05rem;}
+  .fact .v{color:var(--ink-soft);font-size:.95rem;margin-top:4px;}
+
+  /* committee */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .member{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .18s,transform .18s;}
+  .member:hover{box-shadow:0 14px 34px rgba(0,41,77,.14);transform:translateY(-3px);}
+  .member .pic{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center 22%;background:var(--mist);filter:saturate(.94);}
+  .member:hover .pic{filter:none;}
+  .member .ph-init{width:100%;aspect-ratio:1/1;display:grid;place-items:center;font-family:"Space Grotesk";font-weight:700;font-size:3.2rem;color:#fff;background:linear-gradient(150deg,var(--ieee-blue),var(--ieee-navy));position:relative;}
+  .member .ph-init::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 20%,rgba(56,189,248,.25),transparent 55%);}
+  .member .mbody{padding:20px 22px 24px;border-top:3px solid var(--ieee-blue);flex:1;display:flex;flex-direction:column;}
+  .member .role{color:var(--ieee-blue);font-weight:600;font-size:.85rem;}
+  .member .name{font-family:"Space Grotesk";font-weight:700;font-size:1.2rem;color:var(--ink);margin-top:2px;}
+  .member .socials{display:flex;gap:14px;margin-top:auto;padding-top:16px;align-items:center;min-height:22px;}
+  .member .socials a{color:var(--ink-soft);display:inline-flex;}
+  .member .socials a:hover{color:var(--ieee-blue);}
+  .member .socials svg{width:19px;height:19px;}
+  .soon{color:#9fb0c2;font-size:.85rem;}
+  .self-note{color:var(--ink-soft);font-size:.9rem;margin-top:26px;}
+  .self-note code{background:#fff;border:1px solid var(--line);padding:1px 6px;border-radius:4px;}
+
+  /* what we do */
+  .plist{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;}
+  .prog{padding:34px;border-radius:16px;background:var(--mist);transition:background .2s,box-shadow .2s,transform .2s;}
+  .prog:hover{background:#fff;box-shadow:0 16px 40px rgba(0,41,77,.12);transform:translateY(-4px);}
+  .prog-head{display:flex;align-items:center;gap:16px;margin-bottom:16px;}
+  .prog .icon{flex:0 0 auto;width:54px;height:54px;border-radius:14px;background:rgba(0,98,155,.12);color:var(--ieee-blue);display:grid;place-items:center;transition:background .2s,color .2s;}
+  .prog:hover .icon{background:var(--ieee-blue);color:#fff;}
+  .prog .icon svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+  .prog h3{font-size:1.2rem;color:var(--ieee-navy);line-height:1.25;}
+  .prog p{color:var(--ink-soft);margin:0;font-size:1.02rem;line-height:1.65;}
+
+  /* events */
+  .events{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .event{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;text-align:left;padding:0;cursor:pointer;font:inherit;color:inherit;display:flex;flex-direction:column;transition:box-shadow .15s,transform .15s;}
+  .event:hover{box-shadow:0 8px 24px rgba(0,41,77,.12);transform:translateY(-2px);}
+  .event .thumb{aspect-ratio:16/9;background:var(--mist) center/cover no-repeat;}
+  .event .ebody{padding:18px 20px;}
+  .event .date{color:var(--ieee-blue);font-weight:600;font-size:.82rem;}
+  .event h3{font-size:1.08rem;color:var(--ink);margin:6px 0 4px;}
+  .event .more{color:var(--ieee-blue);font-size:.85rem;font-weight:600;margin-top:8px;}
+  .subhead{font-family:"Space Grotesk",sans-serif;font-weight:700;color:var(--ieee-navy);font-size:1.3rem;margin:48px 0 20px;}
+  .next-event{background:linear-gradient(150deg,var(--ieee-blue),var(--ieee-navy));color:#fff;border-radius:16px;padding:38px;display:grid;grid-template-columns:1.5fr 1fr;gap:38px;align-items:center;}
+  .ne-label{display:inline-flex;align-items:center;gap:10px;font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:.9rem;margin-bottom:14px;}
+  .ne-label::before{content:"";width:26px;height:3px;background:var(--nara);border-radius:2px;}
+  .ne-title{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:1.7rem;line-height:1.2;margin-bottom:16px;}
+  .ne-meta{display:flex;flex-wrap:wrap;gap:20px;color:#dbeafe;font-size:.98rem;margin-bottom:16px;}
+  .ne-meta span{display:inline-flex;align-items:center;gap:8px;}
+  .ne-meta svg{width:18px;height:18px;stroke:var(--nara);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+  .ne-blurb{color:#eaf3fb;margin-bottom:24px;max-width:54ch;}
+  .ne-cta .btn{background:#fff;color:var(--ieee-blue);display:inline-flex;align-items:center;gap:10px;}
+  .ne-cta .btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+  .ne-sub{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px 22px;font-size:.9rem;}
+  .ne-sub a{color:#cfe0f2;display:inline-flex;align-items:center;gap:6px;}
+  .ne-sub a:hover{color:#fff;}
+  .countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;text-align:center;}
+  .cd-box{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:18px 6px;}
+  .cd-num{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:1.9rem;line-height:1;}
+  .cd-lbl{font-size:.7rem;color:#cfe0f2;margin-top:7px;letter-spacing:.06em;}
+  .ne-empty{background:#fff;border:1px solid var(--line);border-radius:16px;padding:30px;color:var(--ink-soft);text-align:center;}
+  .placeholder-tag{display:inline-block;background:#fff3cd;color:#8a6d00;font-size:.72rem;font-weight:600;padding:2px 8px;border-radius:4px;margin-left:8px;vertical-align:middle;}
+
+  /* modal */
+  .modal{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,26,51,.6);}
+  .modal.open{display:flex;}
+  .modal-card{background:#fff;border-radius:12px;max-width:640px;width:100%;max-height:88vh;overflow:auto;}
+  .modal-card img{width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--mist);}
+  .modal-body{padding:26px 28px 30px;}
+  .modal-body .date{color:var(--ieee-blue);font-weight:600;font-size:.85rem;}
+  .modal-body h3{font-size:1.5rem;color:var(--ieee-navy);margin:6px 0 14px;}
+  .modal-close{position:sticky;top:12px;float:right;margin:12px 12px -40px 0;width:36px;height:36px;border-radius:50%;border:0;background:rgba(0,0,0,.5);color:#fff;font-size:1.1rem;cursor:pointer;z-index:2;}
+
+  /* logos */
+  .affil-label{text-align:center;color:var(--ink-soft);font-size:1rem;margin:0 0 30px;}
+  .logos{display:flex;flex-wrap:wrap;gap:clamp(40px,6vw,72px);align-items:center;justify-content:center;padding:40px 32px;background:var(--mist);border:1px solid var(--line);border-radius:18px;}
+  /* .logos img{height:clamp(60px,7vw,84px);width:auto;opacity:.95;filter:grayscale(.15);transition:filter .2s,opacity .2s,transform .2s;} */
+  .logos img{height:clamp(5rem,7vw,8rem);width:auto;opacity:.95;filter:grayscale(.15);transition:filter .2s,opacity .2s,transform .2s;}
+  .logos img:hover{filter:none;opacity:1;transform:translateY(-2px);}
+
+  /* join */
+  .join{background:linear-gradient(160deg,var(--ieee-blue),var(--ieee-navy));color:#fff;}
+  .join h2{color:#fff;font-size:clamp(1.8rem,3.4vw,2.5rem);}
+  /* .join h2::after{content:"";display:block;width:52px;height:3px;background:var(--nara);border-radius:2px;margin-top:16px;} */
+  /* .join h2::after{content:"";display:block;width:52px;height:3px;background:var(--signal);border-radius:2px;margin-top:16px;} */
+  .join p{color:#dbeafe;}
+  .join-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:48px;align-items:center;}
+  .join-cta{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.20);border-radius:16px;padding:34px 32px;text-align:center;}
+  .join-cta .cta-line{color:#fff;font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:1.3rem;margin:0 0 6px;}
+  .join-cta .cta-sub{color:#cfe0f2;font-size:.95rem;margin:0 0 22px;}
+  .join-cta .btn{width:100%;}
+  .benefits{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 34px;margin:26px 0 30px;max-width:760px;list-style:none;padding:0;}
+  .benefits li{padding-left:28px;position:relative;color:#eaf3fb;}
+  /* .benefits li::before{content:"";position:absolute;left:0;top:9px;width:12px;height:12px;border-left:2px solid var(--nara);border-bottom:2px solid var(--nara);transform:rotate(-45deg);} */
+  .benefits li::before{content:"";position:absolute;left:0;top:9px;width:12px;height:12px;border-left:2px solid var(--signal);border-bottom:2px solid var(--signal);transform:rotate(-45deg);}
+
+  /* contact */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;}
+  .cinfo dt{font-family:"Space Grotesk";font-weight:700;color:var(--ieee-navy);margin-top:18px;}
+  .cinfo dd{margin:4px 0 0;color:var(--ink-soft);}
+  .cmap{border:1px solid var(--line);border-radius:10px;overflow:hidden;min-height:320px;}
+  .cmap iframe{width:100%;height:100%;min-height:320px;border:0;display:block;}
+  .csocials{display:flex;gap:16px;margin-top:10px;}
+  .csocials a{color:var(--ieee-blue);display:inline-flex;}
+  .csocials svg{width:22px;height:22px;}
+
+  /* footer */
+  footer.ft{background:var(--ieee-navy-deep);color:#c9d8e6;padding:132px 0 46px;position:relative;overflow:hidden;}
+  .nara-skyline{position:absolute;top:0;left:0;width:100%;height:120px;pointer-events:none;}
+  .nara-skyline svg{display:block;width:100%;height:100%;}
+  .ft-inner{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center;}
+  .ft a{color:#c9d8e6;}.ft a:hover{color:#fff;}
+  .ft-links{display:flex;gap:22px;flex-wrap:wrap;font-size:.92rem;}
+  .ft .copy{font-size:.88rem;color:#8ba7c0;}
+
+  @media(max-width:1000px) and (min-width:861px){.grid,.events{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:860px){
+    .nav-links{position:fixed;inset:66px 0 auto 0;background:#fff;flex-direction:column;align-items:flex-start;padding:18px 24px;gap:16px;border-bottom:1px solid var(--line);transform:translateY(-140%);transition:transform .25s;}
+    .nav-links.open{transform:translateY(0);}
+    .nav-toggle{display:block;}
+    .grid,.events,.plist,.facts,.benefits,.contact-grid,.mv,.join-grid,.next-event{grid-template-columns:1fr;}
+    section{padding:60px 0;}
+    .hero,.hero-overlay{min-height:520px;}
+    .hero-overlay .wrap{padding-top:80px;padding-bottom:80px;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .signal-line path{animation:none;stroke-dashoffset:0;}
+    .slide{transition:none;} html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="IEEE Student Branch at NAIST — home">
+      <img src="https://raw.githubusercontent.com/ieee-sb-naist/ieee-sb-naist.github.io/gh-pages/img/ieee-naist-logo-horizontal.png" alt="IEEE Student Branch at NAIST">
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" onclick="var m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'))">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <nav class="nav-links" id="menu">
+      <a class="link" href="#about">About</a>
+      <a class="link" href="#committee">Committee</a>
+      <a class="link" href="#programs">Activities</a>
+      <a class="link" href="#events">Events</a>
+      <a class="link" href="#join">Join</a>
+      <a class="link" href="#contact">Contact</a>
+      <a class="btn" href="https://www.ieee.org/membership/join/" target="_blank" rel="noopener">Join IEEE</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO CAROUSEL -->
+  <section class="hero" id="hero" aria-label="Welcome" onmouseenter="pauseHero()" onmouseleave="resumeHero()">
+    <div class="slides" id="slides"></div>
+    <div class="hero-overlay">
+      <div class="wrap">
+      <p class="context">IEEE Kansai Section · IEEE Japan Council</p>
+      <h1>IEEE Student Branch at NAIST</h1>
+      <p class="lead">A community of graduate engineers and researchers at the Nara Institute of Science and Technology, connecting students to the global work of IEEE.</p>
+      <div class="hero-cta">
+        <a class="btn" href="https://www.ieee.org/membership/join/" target="_blank" rel="noopener">Join IEEE</a>
+        <a class="btn ghost" href="#about">See what we do</a>
+      </div>
+      </div>
+    </div>
+    <div class="carousel-ctrl">
+      <button class="arrow" aria-label="Previous slide" onclick="prevSlide()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="dots" id="dots"></div>
+      <button class="arrow" aria-label="Next slide" onclick="nextSlide()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </section>
+  <div class="signal-line" aria-hidden="true"><svg viewBox="0 0 1400 24" preserveAspectRatio="none"><path d="M0 12 L520 12 L545 3 L575 21 L600 12 L900 12 L925 4 L955 20 L980 12 L1400 12"/></svg></div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="shead">
+        <h2>About the branch</h2>
+        <p>Founded in 2003, the IEEE Student Branch at NAIST supports students through events that explore the edge of technology — while building strong international connections along the way.</p>
+      </div>
+      <div class="facts">
+        <div class="fact"><div class="k">Founded in 2003</div><div class="v">A graduate student branch at NAIST</div></div>
+        <div class="fact"><div class="k">Part of IEEE Kansai Section</div><div class="v">IEEE Japan Council · Region 10</div></div>
+        <div class="fact"><div class="k">Open to all NAIST students</div><div class="v">Master's and doctoral</div></div>
+      </div>
+      <div class="mv">
+        <div class="mv-card">
+          <div class="pic" style="background-image:url('https://raw.githubusercontent.com/ieee-sb-naist/ieee-sb-naist.github.io/gh-pages/img/about/1.jpg')"></div>
+          <div class="body">
+            <div class="mv-title">Mission</div>
+            <div class="mv-headline">Be the bridge for learning the edge of technology to NAIST students</div>
+            <p class="mv-text">We aim to support students through our events to learn the edge of technology while having fun and making strong international connections!</p>
+          </div>
+        </div>
+        <div class="mv-card">
+          <div class="pic" style="background-image:url('https://raw.githubusercontent.com/ieee-sb-naist/ieee-sb-naist.github.io/gh-pages/img/about/2.jpg')"></div>
+          <div class="body">
+            <div class="mv-title">Vision</div>
+            <div class="mv-headline">Become an exemplary Graduate IEEE SB in Japan!</div>
+            <p class="mv-text">We want to bring inspiration and support not only to students from our school, but to those of other graduate schools in Japan! We believe that collaboration is the key!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMITTEE -->
+  <section id="committee" class="mist">
+    <div class="wrap">
+      <div class="shead">
+        <h2>Current committee</h2>
+        <p>The student officers who run the branch.</p>
+      </div>
+      <div class="grid">
+        <div class="member">
+          <img class="pic" src="https://raw.githubusercontent.com/ieee-sb-naist/ieee-sb-naist.github.io/gh-pages/img/team/ndalama-f-e.jpg" alt="Ndalama Festus Edward">
+          <div class="mbody">
+            <div class="role">Chair</div><div class="name">Ndalama Festus Edward</div>
+            <div class="socials"><a href="https://www.linkedin.com/in/festus-ndalama-50896356/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21H21v-5.6c0-1.34-.02-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97V21H13z"/></svg></a></div>
+          </div>
+        </div>
+        <div class="member">
+          <img class="pic" src="https://raw.githubusercontent.com/ieee-sb-naist/ieee-sb-naist.github.io/gh-pages/img/team/indira-f.jpg" alt="Indira Febriyanti">
+          <div class="mbody">
+            <div class="role">Vice Chair</div><div class="name">Indira Febriyanti</div>
+            <div class="socials"><a href="https://github.com/Indirafyn/" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.27 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9v2.82c0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg></a></div>
+          </div>
+        </div>
+        <div class="member">
+          <div class="ph-init">PM</div>
+          <div class="mbody"><div class="role">Secretary</div><div class="name">Patrick Mutabazi</div><div class="socials"></div></div>
+        </div>
+        <div class="member">
+          <div class="ph-init">NI</div>
+          <div class="mbody"><div class="role">Webmaster</div><div class="name">A S M Nazrul Islam</div><div class="socials"></div></div>
+        </div>
+        <div class="member">
+          <div class="ph-init">VM</div>
+          <div class="mbody"><div class="role">Treasurer</div><div class="name">Valerie Megan</div><div class="socials"></div></div>
+        </div>
+        <div class="member">
+          <div class="ph-init">MH</div>
+          <div class="mbody"><div class="role">Member</div><div class="name">S M Mehedi Hasan</div><div class="socials"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE DO -->
+  <section id="programs">
+    <div class="wrap">
+      <div class="shead">
+        <h2>What we do</h2>
+        <p>Activities we run together with other Student Branches across the IEEE Kansai Section.</p>
+      </div>
+      <div class="plist">
+        <div class="prog">
+          <div class="prog-head"><div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M12 16v4M8 20h8M8 11l2.5-2.5L13 11l3-3.5"/></svg></div><h3>English Presentation Competition</h3></div>
+          <p>Students across Kansai-section universities present their research to evaluate and sharpen their English communication.</p>
+        </div>
+        <div class="prog">
+          <div class="prog-head"><div class="icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5M17 11a3 3 0 1 0-2-5.2M17 15c2.5.4 4 2.3 4 5"/></svg></div><h3>Women in Engineering Symposium</h3></div>
+          <p>Talks from female researchers and engineers, with space for women in research and students to connect.</p>
+        </div>
+        <div class="prog">
+          <div class="prog-head"><div class="icon"><svg viewBox="0 0 24 24"><path d="M7 8H4V5M4 8a8 8 0 0 1 13-2M17 16h3v3M20 16a8 8 0 0 1-13 2"/></svg></div><h3>Research Exchange Meeting</h3></div>
+          <p>Students from universities across the Kansai section share research spanning different fields and campuses.</p>
+        </div>
+        <div class="prog">
+          <div class="prog-head"><div class="icon"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 1 4 10.5c-.7.6-1 1.2-1 2H9c0-.8-.3-1.4-1-2A6 6 0 0 1 12 3z"/></svg></div><h3>Brainstorming Competition</h3></div>
+          <p>Teams practice and refine brainstorming techniques to tackle real problems together.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVENTS -->
+  <section id="events" class="mist">
+    <div class="wrap">
+      <div class="shead">
+        <h2>Events</h2>
+        <p>What's coming up next, and a look back at recent branch activities.</p>
+      </div>
+      <div id="next-event"></div>
+      <h3 class="subhead">Recent events</h3>
+      <div class="events" id="events-grid"></div>
+    </div>
+  </section>
+
+  <!-- JOIN -->
+  <section id="join" class="join">
+    <div class="wrap join-grid">
+      <div class="join-main">
+        <h2>Join IEEE</h2>
+        <p>Membership connects you to a global technical community — and to everything the branch does here at NAIST.</p>
+        <ul class="benefits">
+          <li>Access to IEEE Xplore and technical publications</li>
+          <li>Discounts on conferences and events</li>
+          <li>A worldwide network of engineers and researchers</li>
+          <li>Career, learning, and scholarship resources</li>
+          <li>Our local branch community at NAIST</li>
+          <li>Student-specific programs and grants</li>
+        </ul>
+      </div>
+      <div class="join-cta">
+        <p class="cta-line">Ready to join?</p>
+        <p class="cta-sub">Become an IEEE member and get involved with the branch.</p>
+        <a class="btn" style="background:#fff;color:var(--ieee-blue);" href="https://www.ieee.org/membership/join/" target="_blank" rel="noopener">Become a member</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- AFFILIATIONS -->
+  <section id="affiliations" style="padding-top:80px;padding-bottom:80px;">
+    <div class="wrap">
+      <p class="affil-label">Part of the global IEEE community</p>
+      <div class="logos">
+        <img src="https://raw.githubusercontent.com/ieee-sb-naist/ieee-sb-naist.github.io/gh-pages/img/logos/ieee.png" alt="IEEE">
+        <img src="https://raw.githubusercontent.com/ieee-sb-naist/ieee-sb-naist.github.io/gh-pages/img/logos/ieeer10.png" alt="IEEE Region 10">
+        <img src="https://raw.githubusercontent.com/ieee-sb-naist/ieee-sb-naist.github.io/gh-pages/img/logos/naist.png" alt="NAIST">
+        <img src="https://raw.githubusercontent.com/ieee-sb-naist/ieee-sb-naist.github.io/gh-pages/img/logos/naist_infosci.png" alt="NAIST Information Science">
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="mist">
+    <div class="wrap">
+      <div class="shead"><h2>Contact</h2><p>Questions about the branch or membership? Reach out or find us on campus.</p></div>
+      <div class="contact-grid">
+        <dl class="cinfo">
+          <dt>Email</dt><dd><a href="mailto:sb.naist@ieee.org">sb.naist@ieee.org</a></dd>
+          <dt>Address</dt><dd>Nara Institute of Science and Technology (NAIST)<br>8916-5 Takayama-cho, Ikoma<br>Nara, Japan 630-0192</dd>
+          <dt>Follow us</dt>
+          <dd><div class="csocials">
+            <a href="https://www.facebook.com/ieee.sb.naist" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg></a>
+            <a href="https://twitter.com/ieee_sb_naist" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.4 8.46L23 22h-6.8l-5.3-6.94L4.8 22H1.7l7.9-9.03L1 2h7l4.8 6.34L18.9 2zm-2.4 18h1.9L7.6 4H5.6l10.9 16z"/></svg></a>
+            <a href="https://www.instagram.com/ieee_sb_naist/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.74.07-1.14.05-1.76.24-2.17.4-.55.21-.94.47-1.35.88-.41.41-.67.8-.88 1.35-.16.41-.35 1.03-.4 2.17-.06 1.24-.07 1.59-.07 4.74s.01 3.5.07 4.74c.05 1.14.24 1.76.4 2.17.21.55.47.94.88 1.35.41.41.8.67 1.35.88.41.16 1.03.35 2.17.4 1.24.06 1.59.07 4.74.07s3.5-.01 4.74-.07c1.14-.05 1.76-.24 2.17-.4.55-.21.94-.47 1.35-.88.41-.41.67-.8.88-1.35.16-.41.35-1.03.4-2.17.06-1.24.07-1.59.07-4.74s-.01-3.5-.07-4.74c-.05-1.14-.24-1.76-.4-2.17a3.6 3.6 0 0 0-.88-1.35 3.6 3.6 0 0 0-1.35-.88c-.41-.16-1.03-.35-2.17-.4-1.24-.06-1.59-.07-4.74-.07zm0 2.76a5.3 5.3 0 1 1 0 10.6 5.3 5.3 0 0 1 0-10.6zm0 8.74a3.44 3.44 0 1 0 0-6.88 3.44 3.44 0 0 0 0 6.88zm6.74-8.94a1.24 1.24 0 1 1-2.48 0 1.24 1.24 0 0 1 2.48 0z"/></svg></a>
+          </div></dd>
+        </dl>
+        <div class="cmap"><iframe title="NAIST location map" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Nara%20Institute%20of%20Science%20and%20Technology&z=15&output=embed"></iframe></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="ft">
+  <div class="nara-skyline" aria-hidden="true">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="xMidYMax slice">
+      <defs><linearGradient id="ng" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c3050"/><stop offset="1" stop-color="#001A33"/></linearGradient></defs>
+      <path d="M0,120 L0,98 C 220,80 380,108 560,96 C 760,82 940,110 1160,92 C 1300,80 1380,98 1440,90 L1440,120 Z" fill="url(#ng)"/>
+      <!-- deer (warm) -->
+      <g fill="#c24e2e">
+        <ellipse cx="205" cy="80" rx="18" ry="8"/>
+        <rect x="192" y="86" width="3" height="10"/><rect x="200" y="86" width="3" height="10"/><rect x="214" y="86" width="3" height="10"/><rect x="221" y="86" width="3" height="10"/>
+        <path d="M220,76 L228,60 L233,61 L226,78 Z"/>
+        <ellipse cx="231" cy="57" rx="5" ry="3.5" transform="rotate(-20 231 57)"/>
+        <path d="M234,54 L240,51 L240,54 L235,57 Z"/>
+        <path d="M228,54 L226,48 L230,52 Z"/>
+        <path d="M187,78 L183,82 L188,82 Z"/>
+      </g>
+      <path d="M230,54 L227,44 M230,54 L233,45 M227,44 L224,46 M227,44 L228,40 M233,45 L236,41 M233,45 L231,40" stroke="#c24e2e" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <!-- torii -->
+      <g fill="#0e3454">
+        <path d="M494,58 Q520,46 546,58 L546,53 Q520,41 494,53 Z"/>
+        <rect x="505" y="58" width="5" height="38"/><rect x="530" y="58" width="5" height="38"/>
+        <rect x="500" y="70" width="40" height="5"/>
+      </g>
+      <!-- pines -->
+      <g fill="#0e3454">
+        <path d="M876,96 L888,68 L900,96 Z"/><path d="M878,80 L888,62 L898,80 Z"/>
+        <path d="M930,96 L942,70 L954,96 Z"/><path d="M932,82 L942,64 L952,82 Z"/>
+      </g>
+      <!-- pagoda -->
+      <g fill="#0e3454">
+        <rect x="1078" y="60" width="4" height="36"/>
+        <path d="M1048,92 L1080,82 L1112,92 Z"/>
+        <path d="M1054,80 L1080,71 L1106,80 Z"/>
+        <path d="M1060,70 L1080,62 L1100,70 Z"/>
+      </g>
+      <g fill="#0e3454"><rect x="1078" y="50" width="4" height="12"/><circle cx="1080" cy="50" r="3"/></g>
+    </svg>
+  </div>
+  <div class="wrap ft-inner">
+    <div class="copy">© <span id="yr"></span> IEEE Student Branch at NAIST · Ikoma, Nara, Japan</div>
+    <div class="ft-links">
+      <a href="https://www.ieee.org/" target="_blank" rel="noopener">IEEE.org</a>
+      <a href="https://www.ieee-jp.org/" target="_blank" rel="noopener">IEEE Japan Council</a>
+      <a href="https://www.ieee-jp.org/section/kansai/" target="_blank" rel="noopener">IEEE Kansai Section</a>
+      <a href="https://www.ieee.org/membership/join/" target="_blank" rel="noopener">Join IEEE</a>
+    </div>
+  </div>
+</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" onclick="if(event.target===this)closeModal()">
+  <div class="modal-card">
+    <button class="modal-close" aria-label="Close" onclick="closeModal()">✕</button>
+    <img id="modal-img" src="" alt="">
+    <div class="modal-body">
+      <div class="date" id="modal-date"></div>
+      <h3 id="modal-title"></h3>
+      <p id="modal-text"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  document.querySelectorAll('#menu a').forEach(function(a){a.addEventListener('click',function(){document.getElementById('menu').classList.remove('open');});});
+
+  /* HERO CAROUSEL — add more banners by adding URLs here */
+  var RAW="https://raw.githubusercontent.com/ieee-sb-naist/ieee-sb-naist.github.io/gh-pages";
+  var heroSlides=[RAW+"/img/header-bg.jpg", RAW+"/img/header-bg.2022.jpg"];
+  var slidesEl=document.getElementById('slides'), dotsEl=document.getElementById('dots'), cur=0, timer=null;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  heroSlides.forEach(function(url,i){
+    var s=document.createElement('div'); s.className='slide'+(i===0?' on':''); s.style.backgroundImage="url('"+url+"')"; slidesEl.appendChild(s);
+    var d=document.createElement('button'); d.className='dot'+(i===0?' on':''); d.setAttribute('aria-label','Go to slide '+(i+1)); d.onclick=function(){go(i);}; dotsEl.appendChild(d);
+  });
+  function render(){slidesEl.querySelectorAll('.slide').forEach(function(s,i){s.classList.toggle('on',i===cur);});dotsEl.querySelectorAll('.dot').forEach(function(d,i){d.classList.toggle('on',i===cur);});}
+  function go(i){cur=(i+heroSlides.length)%heroSlides.length;render();}
+  function nextSlide(){go(cur+1);} function prevSlide(){go(cur-1);}
+  function startHero(){if(!reduce&&heroSlides.length>1){timer=setInterval(nextSlide,6000);}}
+  function pauseHero(){if(timer){clearInterval(timer);timer=null;}}
+  function resumeHero(){if(!timer)startHero();}
+  startHero();
+
+  /* SCROLL-SPY NAV */
+  var spy=document.querySelectorAll('.nav-links a.link'), map={};
+  spy.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){spy.forEach(function(a){a.classList.remove('active');});if(map[e.target.id])map[e.target.id].classList.add('active');}});
+  },{rootMargin:"-45% 0px -50% 0px"});
+  ['about','committee','programs','events','join','contact'].forEach(function(id){var el=document.getElementById(id);if(el)obs.observe(el);});
+
+  /* EVENTS + MODAL */
+  var EV=RAW+"/img/events/";
+  var events=[
+    {date:"2023",title:"Officer Selection for 2023",img:EV+"officer-selection-2023.jpg",text:"We held an event to select the Student Branch officers for 2023 with the previous officers present. The new officers for 2023 were Olufemi (Chair), Thuwiba (Vice Chair), Sergio (Secretary), Yohanssen (Treasurer) and Kang (Webmaster). Juri also joined as a regular member. We had a social gathering with sushi afterwards. Welcome everyone to IEEE SB NAIST!"},
+    {date:"2022",title:"Research Exchange Meeting 2022",img:EV+"research-exchange-meeting-2022.jpg",text:"A member presented at the Research Exchange Meeting 2022, held at Osaka Institute of Technology, Umeda Campus."},
+    {date:"2022",title:"English Presentation Competition 2022",img:EV+"english-presentation-2022.jpeg",text:"A member took part in the English Presentation Competition 2022, hosted at Ritsumeikan University."},
+    {date:"2022",title:"Members photo session 2022",img:EV+"photo-session-2022.jpeg",text:"We gathered to take updated member photos for the website. Thanks to Felan Carlo Garcia for taking the pictures."},
+    {date:"2021",title:"Members photo session 2021",img:EV+"photo-session-2021.JPG",text:"We took photos of the members to refresh the website for the year. Thanks to Felan Carlo Garcia for taking the pictures."},
+    {date:"Feb 2021",title:"First officers' meeting of 2021",img:EV+"20210218.JPG",text:"The officers of the Student Branch held the first meeting of the year to draft the plan for the year ahead."}
+  ];
+  var grid=document.getElementById('events-grid');
+  events.forEach(function(ev,i){
+    var b=document.createElement('button'); b.className='event'; b.onclick=function(){openModal(i);};
+    b.innerHTML='<div class="thumb" style="background-image:url(\''+ev.img+'\')"></div><div class="ebody"><div class="date">'+ev.date+'</div><h3>'+ev.title+'</h3><div class="more">Read more</div></div>';
+    grid.appendChild(b);
+  });
+
+  /* NEXT EVENT — set to null when nothing is scheduled, or update the fields */
+  var upcomingEvent = {
+    title:"Semester Kick-off & Officer Meet",
+    datetime:"2026-10-20T18:00:00+09:00",   // start (with timezone)
+    end:"2026-10-20T20:00:00+09:00",         // end (optional; defaults to +2h)
+    location:"NAIST, Information Science Building",
+    blurb:"Our first gathering of the term — meet the committee, hear what's planned, and find out how to get involved.",
+    rsvpUrl:""                                // optional: a Google Form / Facebook event / mailto link
+  };
+  (function(){
+    var host=document.getElementById('next-event'); if(!host) return;
+    function pad(n){return (n<10?'0':'')+n;}
+    function empty(){host.innerHTML='<div class="ne-empty">No upcoming events scheduled right now — check back soon.</div>';}
+    if(!upcomingEvent){empty();return;}
+    var dt=new Date(upcomingEvent.datetime);
+    if(isNaN(dt.getTime())||dt.getTime()<=Date.now()){empty();return;}
+    var when=dt.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'})+' \u00b7 '+dt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+    host.innerHTML=
+      '<div class="next-event">'+
+        '<div class="ne-left">'+
+          '<div class="ne-label">Next event</div>'+
+          '<div class="ne-title"></div>'+
+          '<div class="ne-meta">'+
+            '<span><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span class="ne-when"></span></span>'+
+            '<span><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span class="ne-loc"></span></span>'+
+          '</div>'+
+          '<p class="ne-blurb"></p>'+
+          '<div class="ne-cta"></div>'+
+        '</div>'+
+        '<div class="ne-right"><div class="countdown">'+
+          '<div class="cd-box"><div class="cd-num" id="cd-d">0</div><div class="cd-lbl">DAYS</div></div>'+
+          '<div class="cd-box"><div class="cd-num" id="cd-h">00</div><div class="cd-lbl">HRS</div></div>'+
+          '<div class="cd-box"><div class="cd-num" id="cd-m">00</div><div class="cd-lbl">MIN</div></div>'+
+          '<div class="cd-box"><div class="cd-num" id="cd-s">00</div><div class="cd-lbl">SEC</div></div>'+
+        '</div></div>'+
+      '</div>';
+    host.querySelector('.ne-title').textContent=upcomingEvent.title;
+    host.querySelector('.ne-when').textContent=when;
+    host.querySelector('.ne-loc').textContent=upcomingEvent.location;
+    host.querySelector('.ne-blurb').textContent=upcomingEvent.blurb;
+    var cta=host.querySelector('.ne-cta');
+    function toCal(x){return new Date(x).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');}
+    function endOf(ev){if(ev.end)return ev.end;var d=new Date(ev.datetime);d.setHours(d.getHours()+2);return d.toISOString();}
+    var gs=toCal(upcomingEvent.datetime), ge=toCal(endOf(upcomingEvent));
+    var gcal='https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(upcomingEvent.title)+'&dates='+gs+'/'+ge+'&details='+encodeURIComponent(upcomingEvent.blurb||'')+'&location='+encodeURIComponent(upcomingEvent.location||'');
+    var icsText=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//IEEE SB NAIST//EN','BEGIN:VEVENT','UID:'+gs+'@ieee-sb-naist.github.io','DTSTAMP:'+toCal(new Date().toISOString()),'DTSTART:'+gs,'DTEND:'+ge,'SUMMARY:'+upcomingEvent.title,'DESCRIPTION:'+(upcomingEvent.blurb||'').replace(/\n/g,' '),'LOCATION:'+(upcomingEvent.location||''),'END:VEVENT','END:VCALENDAR'].join('\r\n');
+    var icsHref='data:text/calendar;charset=utf-8,'+encodeURIComponent(icsText);
+    cta.innerHTML='<a class="btn" target="_blank" rel="noopener" href="'+gcal+'"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M12 14v4M10 16h4"/></svg>Add to Google Calendar</a>'+
+      '<div class="ne-sub">'+
+        '<a href="'+icsHref+'" download="ieee-sb-naist-event.ics">Add to Apple / Outlook (.ics)</a>'+
+        (upcomingEvent.rsvpUrl?'<a target="_blank" rel="noopener" href="'+upcomingEvent.rsvpUrl+'">Details & RSVP</a>':'')+
+      '</div>';
+    var dEl=document.getElementById('cd-d'),hEl=document.getElementById('cd-h'),mEl=document.getElementById('cd-m'),sEl=document.getElementById('cd-s'),iv;
+    function tick(){
+      var t=dt.getTime()-Date.now();
+      if(t<=0){clearInterval(iv);empty();return;}
+      dEl.textContent=Math.floor(t/86400000);
+      hEl.textContent=pad(Math.floor(t/3600000)%24);
+      mEl.textContent=pad(Math.floor(t/60000)%60);
+      sEl.textContent=pad(Math.floor(t/1000)%60);
+    }
+    tick(); iv=setInterval(tick,1000);
+  })();
+  var modal=document.getElementById('modal'), lastFocus=null;
+  function openModal(i){var ev=events[i];lastFocus=document.activeElement;
+    document.getElementById('modal-img').src=ev.img;document.getElementById('modal-img').alt=ev.title;
+    document.getElementById('modal-date').textContent=ev.date;document.getElementById('modal-title').textContent=ev.title;
+    document.getElementById('modal-text').textContent=ev.text;modal.classList.add('open');document.querySelector('.modal-close').focus();}
+  function closeModal(){modal.classList.remove('open');if(lastFocus)lastFocus.focus();}
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('open'))closeModal();});
+</script>
+</body>
+</html>
