@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Design preview for committee review. Production build uses Jekyll with local /img assets, a separate stylesheet + JS, and _data/_config content. -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -13,7 +14,7 @@
     --ieee-blue:#00629B; --ieee-navy:#00294D; --ieee-navy-deep:#001A33;
     --signal:#38BDF8; --nara:#C24E2E; --nara-soft:#F3E4DC; --ink:#0A2540; --ink-soft:#42566b;
     --paper:#fff; --mist:#F2F6FA; --line:#dbe4ee; --maxw:1120px;
-    --raw:https://raw.githubusercontent.com/ieee-sb-naist/ieee-sb-naist.github.io/gh-pages;
+    --raw:https://ieee-sb-naist.github.io;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -29,8 +30,6 @@
   /* nav */
   header.nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
   .nav-inner{display:flex;align-items:center;justify-content:space-between;height:66px;}
-  /* .brand{display:flex;align-items:center;gap:10px;font-family:"Space Grotesk";font-weight:700;color:var(--ieee-navy);font-size:1.05rem;letter-spacing:-.02em;}
-  .brand .mark{width:26px;height:26px;flex:0 0 auto;} */
   .brand{display:flex;align-items:center;}
   .brand img{height:40px;width:auto;display:block;}
   .nav-links{display:flex;align-items:center;gap:26px;}
@@ -48,8 +47,6 @@
   .slides{position:absolute;inset:0;z-index:0;}
   .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1s ease;}
   .slide.on{opacity:1;}
-  /* .hero-overlay{position:relative;z-index:2;min-height:600px;display:flex;align-items:flex-start;background:linear-gradient(112deg, rgba(0,26,51,.58) 0%, rgba(0,33,61,.36) 46%, rgba(0,73,124,.14) 100%);}
-  .hero-overlay .wrap{padding-top:108px;padding-bottom:96px;} */
   .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(112deg, rgba(0,26,51,.58) 0%, rgba(0,33,61,.36) 46%, rgba(0,73,124,.14) 100%);}
   .hero .wrap{position:relative;z-index:2;padding-top:108px;padding-bottom:96px;}
   
@@ -73,7 +70,6 @@
   /* section heads */
   .shead{max-width:none;margin-bottom:44px;}
   .shead h2{font-size:clamp(1.8rem,3.4vw,2.5rem);color:var(--ieee-navy);}
-  /* .shead h2::after{content:"";display:block;width:52px;height:3px;background:var(--nara);border-radius:2px;margin-top:16px;} */
   .shead p{color:var(--ink-soft);font-size:1.08rem;margin-top:14px;max-width:none;}
   #about .shead{max-width:none;}
   #about .shead p{max-width:none;}
@@ -227,7 +223,7 @@
 <header class="nav">
   <div class="wrap nav-inner">
     <a class="brand" href="#top" aria-label="IEEE Student Branch at NAIST — home">
-      <img src="https://raw.githubusercontent.com/ieee-sb-naist/ieee-sb-naist.github.io/gh-pages/img/ieee-naist-logo-horizontal.png" alt="IEEE Student Branch at NAIST">
+      <img src="https://ieee-sb-naist.github.io/img/ieee-naist-logo-horizontal.png" alt="IEEE Student Branch at NAIST">
     </a>
     <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" onclick="var m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'))">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -282,7 +278,7 @@
       </div>
       <div class="mv">
         <div class="mv-card">
-          <div class="pic" style="background-image:url('https://raw.githubusercontent.com/ieee-sb-naist/ieee-sb-naist.github.io/gh-pages/img/about/1.jpg')"></div>
+          <div class="pic" style="background-image:url('https://ieee-sb-naist.github.io/img/about/1.jpg')"></div>
           <div class="body">
             <div class="mv-title">Mission</div>
             <div class="mv-headline">Be the bridge for learning the edge of technology to NAIST students</div>
@@ -290,7 +286,7 @@
           </div>
         </div>
         <div class="mv-card">
-          <div class="pic" style="background-image:url('https://raw.githubusercontent.com/ieee-sb-naist/ieee-sb-naist.github.io/gh-pages/img/about/2.jpg')"></div>
+          <div class="pic" style="background-image:url('https://ieee-sb-naist.github.io/img/about/2.jpg')"></div>
           <div class="body">
             <div class="mv-title">Vision</div>
             <div class="mv-headline">Become an exemplary Graduate IEEE SB in Japan!</div>
@@ -310,14 +306,14 @@
       </div>
       <div class="grid">
         <div class="member">
-          <img class="pic" src="https://raw.githubusercontent.com/ieee-sb-naist/ieee-sb-naist.github.io/gh-pages/img/team/ndalama-f-e.jpg" alt="Ndalama Festus Edward">
+          <img class="pic" src="https://ieee-sb-naist.github.io/img/team/ndalama-f-e.jpg" alt="Ndalama Festus Edward">
           <div class="mbody">
             <div class="role">Chair</div><div class="name">Ndalama Festus Edward</div>
             <div class="socials"><a href="https://www.linkedin.com/in/festus-ndalama-50896356/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21H21v-5.6c0-1.34-.02-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97V21H13z"/></svg></a></div>
           </div>
         </div>
         <div class="member">
-          <img class="pic" src="https://raw.githubusercontent.com/ieee-sb-naist/ieee-sb-naist.github.io/gh-pages/img/team/indira-f.jpg" alt="Indira Febriyanti">
+          <img class="pic" src="https://ieee-sb-naist.github.io/img/team/indira-f.jpg" alt="Indira Febriyanti">
           <div class="mbody">
             <div class="role">Vice Chair</div><div class="name">Indira Febriyanti</div>
             <div class="socials"><a href="https://github.com/Indirafyn/" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.27 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9v2.82c0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg></a></div>
@@ -412,10 +408,10 @@
     <div class="wrap">
       <p class="affil-label">Part of the global IEEE community</p>
       <div class="logos">
-        <img src="https://raw.githubusercontent.com/ieee-sb-naist/ieee-sb-naist.github.io/gh-pages/img/logos/ieee.png" alt="IEEE">
-        <img src="https://raw.githubusercontent.com/ieee-sb-naist/ieee-sb-naist.github.io/gh-pages/img/logos/ieeer10.png" alt="IEEE Region 10">
-        <img src="https://raw.githubusercontent.com/ieee-sb-naist/ieee-sb-naist.github.io/gh-pages/img/logos/naist.png" alt="NAIST">
-        <img src="https://raw.githubusercontent.com/ieee-sb-naist/ieee-sb-naist.github.io/gh-pages/img/logos/naist_infosci.png" alt="NAIST Information Science">
+        <img src="https://ieee-sb-naist.github.io/img/logos/ieee.png" alt="IEEE">
+        <img src="https://ieee-sb-naist.github.io/img/logos/ieeer10.png" alt="IEEE Region 10">
+        <img src="https://ieee-sb-naist.github.io/img/logos/naist.png" alt="NAIST">
+        <img src="https://ieee-sb-naist.github.io/img/logos/naist_infosci.png" alt="NAIST Information Science">
       </div>
     </div>
   </section>
@@ -506,7 +502,7 @@
   document.querySelectorAll('#menu a').forEach(function(a){a.addEventListener('click',function(){document.getElementById('menu').classList.remove('open');});});
 
   /* HERO CAROUSEL — add more banners by adding URLs here */
-  var RAW="https://raw.githubusercontent.com/ieee-sb-naist/ieee-sb-naist.github.io/gh-pages";
+  var RAW="https://ieee-sb-naist.github.io";
   var heroSlides=[RAW+"/img/header-bg.jpg", RAW+"/img/header-bg.2022.jpg"];
   var slidesEl=document.getElementById('slides'), dotsEl=document.getElementById('dots'), cur=0, timer=null;
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -538,7 +534,7 @@
     {date:"2022",title:"English Presentation Competition 2022",img:EV+"english-presentation-2022.jpeg",text:"A member took part in the English Presentation Competition 2022, hosted at Ritsumeikan University."},
     {date:"2022",title:"Members photo session 2022",img:EV+"photo-session-2022.jpeg",text:"We gathered to take updated member photos for the website. Thanks to Felan Carlo Garcia for taking the pictures."},
     {date:"2021",title:"Members photo session 2021",img:EV+"photo-session-2021.JPG",text:"We took photos of the members to refresh the website for the year. Thanks to Felan Carlo Garcia for taking the pictures."},
-    {date:"Feb 2021",title:"First officers' meeting of 2021",img:EV+"20210218.JPG",text:"The officers of the Student Branch held the first meeting of the year to draft the plan for the year ahead."}
+    {date:"2021",title:"First officers' meeting of 2021",img:EV+"20210218.JPG",text:"The officers of the Student Branch held the first meeting of the year to draft the plan for the year ahead."}
   ];
   var grid=document.getElementById('events-grid');
   events.forEach(function(ev,i){
