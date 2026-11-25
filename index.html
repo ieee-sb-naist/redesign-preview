@@ -30,6 +30,8 @@
   /* nav */
   header.nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
   .nav-inner{display:flex;align-items:center;justify-content:space-between;height:66px;}
+  /* .brand{display:flex;align-items:center;gap:10px;font-family:"Space Grotesk";font-weight:700;color:var(--ieee-navy);font-size:1.05rem;letter-spacing:-.02em;}
+  .brand .mark{width:26px;height:26px;flex:0 0 auto;} */
   .brand{display:flex;align-items:center;}
   .brand img{height:40px;width:auto;display:block;}
   .nav-links{display:flex;align-items:center;gap:26px;}
@@ -47,6 +49,8 @@
   .slides{position:absolute;inset:0;z-index:0;}
   .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1s ease;}
   .slide.on{opacity:1;}
+  /* .hero-overlay{position:relative;z-index:2;min-height:600px;display:flex;align-items:flex-start;background:linear-gradient(112deg, rgba(0,26,51,.58) 0%, rgba(0,33,61,.36) 46%, rgba(0,73,124,.14) 100%);}
+  .hero-overlay .wrap{padding-top:108px;padding-bottom:96px;} */
   .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(112deg, rgba(0,26,51,.58) 0%, rgba(0,33,61,.36) 46%, rgba(0,73,124,.14) 100%);}
   .hero .wrap{position:relative;z-index:2;padding-top:108px;padding-bottom:96px;}
   
@@ -70,6 +74,7 @@
   /* section heads */
   .shead{max-width:none;margin-bottom:44px;}
   .shead h2{font-size:clamp(1.8rem,3.4vw,2.5rem);color:var(--ieee-navy);}
+  /* .shead h2::after{content:"";display:block;width:52px;height:3px;background:var(--nara);border-radius:2px;margin-top:16px;} */
   .shead p{color:var(--ink-soft);font-size:1.08rem;margin-top:14px;max-width:none;}
   #about .shead{max-width:none;}
   #about .shead p{max-width:none;}
@@ -471,7 +476,7 @@
         <path d="M1054,80 L1080,71 L1106,80 Z"/>
         <path d="M1060,70 L1080,62 L1100,70 Z"/>
       </g>
-      <g fill="#0e3454"><rect x="1078" y="50" width="4" height="12"/><circle cx="1080" cy="50" r="3"/></g>
+      <g fill="#c24e2e"><rect x="1078" y="50" width="4" height="12"/><circle cx="1080" cy="50" r="3"/></g>
     </svg>
   </div>
   <div class="wrap ft-inner">
@@ -534,7 +539,7 @@
     {date:"2022",title:"English Presentation Competition 2022",img:EV+"english-presentation-2022.jpeg",text:"A member took part in the English Presentation Competition 2022, hosted at Ritsumeikan University."},
     {date:"2022",title:"Members photo session 2022",img:EV+"photo-session-2022.jpeg",text:"We gathered to take updated member photos for the website. Thanks to Felan Carlo Garcia for taking the pictures."},
     {date:"2021",title:"Members photo session 2021",img:EV+"photo-session-2021.JPG",text:"We took photos of the members to refresh the website for the year. Thanks to Felan Carlo Garcia for taking the pictures."},
-    {date:"2021",title:"First officers' meeting of 2021",img:EV+"20210218.JPG",text:"The officers of the Student Branch held the first meeting of the year to draft the plan for the year ahead."}
+    {date:"Feb 2021",title:"First officers' meeting of 2021",img:EV+"20210218.JPG",text:"The officers of the Student Branch held the first meeting of the year to draft the plan for the year ahead."}
   ];
   var grid=document.getElementById('events-grid');
   events.forEach(function(ev,i){
